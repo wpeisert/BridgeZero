@@ -1,0 +1,9 @@
+/.coverage
+/.idea/
+/.mypy_cache/
+/bridgezero.egg-info/
+__pycache__
+/build/
+/dist/
+/htmlcov/
+/venv/
