@@ -179,9 +179,9 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         self.critic_w += self.last_features * self.critic_step_size * delta
         for a in self.actions:
             if a == self.last_action:
-                self.actor_w[a][self.last_features] += self.actor_step_size * delta * (1 - self.softmax_prob[a])
+                self.actor_w[a] += self.last_features * self.actor_step_size * delta * (1 - self.softmax_prob[a])
             else:
-                self.actor_w[a][self.last_features] += self.actor_step_size * delta * (0 - self.softmax_prob[a])
+                self.actor_w[a] += self.last_features * self.actor_step_size * delta * (0 - self.softmax_prob[a])
 
 
     def agent_message(self, message):
