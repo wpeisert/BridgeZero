@@ -1,28 +1,37 @@
 import numpy as np
 
 from bridgezero.agent import ActorCriticSoftmaxEpisodicAgent
+from bridgezero.base_actions_provider import BaseActionsProvider
 from bridgezero.base_state_features import BaseStateFeatures
 from bridgezero.state import State
 
 
-class StateFeaturesHelper(BaseStateFeatures):
+class StateFeaturesTestHelper(BaseStateFeatures):
     FEATURES_CNT = 4
 
     def __init__(self):
         self.counter = 0
 
     def get_features_count(self):
-        return StateFeaturesHelper.FEATURES_CNT
+        return StateFeaturesTestHelper.FEATURES_CNT
 
     def get_features(self, state: State):
         self.counter += 1
-        features = np.array([self.counter * i for i in range(StateFeaturesHelper.FEATURES_CNT)])
+        features = np.array([self.counter * i for i in range(StateFeaturesTestHelper.FEATURES_CNT)])
         return features
+
+class ActionsProviderTestHelper(BaseActionsProvider):
+    def get_all_actions_count(self):
+        return 3
+
+    def get_forbidden_actions_list(self, state : State):
+        return []
 
 
 def get_initiated_agent():
     agent_info = {
-        "state_feature_coder": StateFeaturesHelper(),
+        "state_feature_coder": StateFeaturesTestHelper(),
+        "actions_provider": ActionsProviderTestHelper(),
 
         "actor_step_size": 1e-3,
         "critic_step_size": 1e-2,

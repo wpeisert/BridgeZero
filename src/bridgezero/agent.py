@@ -2,10 +2,12 @@
 
 """RL agent
 """
+import copy
 
 import numpy as np
 import scipy
 
+from bridgezero.base_actions_provider import BaseActionsProvider
 from bridgezero.base_agent import BaseAgent
 from bridgezero.base_state_features import BaseStateFeatures
 from bridgezero.state import State
@@ -20,6 +22,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         self.avg_reward_step_size = None
 
         self.state_feature_coder: BaseStateFeatures = BaseStateFeatures()
+        self.actions_provider: BaseActionsProvider = BaseActionsProvider()
 
         self.avg_reward = None
         self.critic_w = None
@@ -41,6 +44,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         Assume agent_info dict contains:
         {
             "state_feature_coder" : BaseStateFeatures
+            "actions_provider" : BaseActionsProvider
 
             "discount" : float  # currently not used
 
@@ -48,7 +52,6 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
             "critic_step_size": float,
             "avg_reward_step_size": float,
 
-            "actions_count": int,
             "seed": int
         }
         """
@@ -60,19 +63,21 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
 
         # set state feature coder
         self.state_feature_coder = agent_info.get("state_feature_coder")
+        self.actions_provider = agent_info.get("actions_provider")
 
         # set step-size accordingly
         self.actor_step_size = agent_info.get("actor_step_size")
         self.critic_step_size = agent_info.get("critic_step_size")
         self.avg_reward_step_size = agent_info.get("avg_reward_step_size")
 
-        self.actions = list(range(agent_info.get("actions_count")))
+        self.actions_count = self.actions_provider.get_all_actions_count()
+        self.actions = list(range(self.actions_count))
 
         # Set initial values of average reward, actor weights, and critic weights
         self.avg_reward = 0.0
-        features_count = self.state_feature_coder.get_features_count()
-        self.actor_w = np.zeros((len(self.actions), features_count))
-        self.critic_w = np.zeros(features_count)
+        self.features_count = self.state_feature_coder.get_features_count()
+        self.actor_w = np.zeros((self.actions_count, self.features_count))
+        self.critic_w = np.zeros(self.features_count)
 
         self.softmax_prob = None
         self.last_features = None
@@ -80,7 +85,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         self.current_features = None
         self.current_action = None
 
-    def agent_policy(self, state_features):
+    def agent_policy(self, state_features, state: State):
         """ policy of the agent
         Args:
             state of class State: the state from the environment
@@ -90,19 +95,23 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         """
 
         # compute softmax probability
-        softmax_prob = scipy.special.softmax(
+        # save as it will be useful later when updating the Actor
+        self.softmax_prob = scipy.special.softmax(
             np.matmul(
                 self.actor_w,
                 state_features
             )
         )
 
+        # prepare weights for action choose; remove forbidden actions
+        weights = copy.deepcopy(self.softmax_prob)
+        forbidden_actions = self.actions_provider.get_forbidden_actions_list(state)
+        weights[forbidden_actions] = 0
+        weights /= sum(weights)
+
         # Sample action from the softmax probability array
         # self.rand_generator.choice() selects an element from the array with the specified probability
-        chosen_action = self.rand_generator.choice(self.actions, p=softmax_prob)
-
-        # save softmax_prob as it will be useful later when updating the Actor
-        self.softmax_prob = softmax_prob
+        chosen_action = self.rand_generator.choice(self.actions, p=weights)
 
         return chosen_action
 
@@ -128,7 +137,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
             The first action the agent takes.
         """
         self.current_features = self.state_feature_coder.get_features(state)
-        self.current_action = self.agent_policy(self.current_features)
+        self.current_action = self.agent_policy(self.current_features, state)
 
         self.last_action = self.current_action
         self.last_features = np.copy(self.current_features)
@@ -149,7 +158,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
 
         self.calculate_policy_after_step(reward)
 
-        self.current_action = self.agent_policy(self.current_features)
+        self.current_action = self.agent_policy(self.current_features, state)
         self.last_features = self.current_features
         self.last_action = self.current_action
 

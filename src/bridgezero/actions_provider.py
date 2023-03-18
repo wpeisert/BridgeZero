@@ -8,7 +8,7 @@ class ActionsProvider(BaseActionsProvider):
     This class is for manipulating actions by agent
     """
     def get_all_actions_count(self):
-        Bridge.getAllActionsCount()
+        Bridge.get_all_actions_count()
 
     def get_allowed_actions_list(self, state : State):
         raise NotImplementedError("BaseActionsProvider.get_allowed_actions_list not implemented")
