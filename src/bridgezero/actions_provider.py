@@ -1,4 +1,4 @@
-from bridgezero.base_actions_provider import BaseActionsProvider
+from bridgezero.base.base_actions_provider import BaseActionsProvider
 from bridgezero.bridge import Bridge
 from bridgezero.state import State
 
@@ -11,7 +11,7 @@ class ActionsProvider(BaseActionsProvider):
         Bridge.get_all_actions_count()
 
     def get_allowed_actions_list(self, state : State):
-        raise NotImplementedError("BaseActionsProvider.get_allowed_actions_list not implemented")
+        return Bridge.get_allowed_bids(state.bidding)
 
     def get_forbidden_actions_list(self, state : State):
         raise NotImplementedError("BaseActionsProvider.get_forbidden_actions_list not implemented")

@@ -7,9 +7,9 @@ import copy
 import numpy as np
 import scipy
 
-from bridgezero.base_actions_provider import BaseActionsProvider
-from bridgezero.base_agent import BaseAgent
-from bridgezero.base_state_features import BaseStateFeatures
+from bridgezero.base.base_actions_provider import BaseActionsProvider
+from bridgezero.base.base_agent import BaseAgent
+from bridgezero.base.base_state_features import BaseStateFeatures
 from bridgezero.state import State
 
 

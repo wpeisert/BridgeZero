@@ -1,8 +1,8 @@
 import numpy as np
 
 from bridgezero.agent import ActorCriticSoftmaxEpisodicAgent
-from bridgezero.base_actions_provider import BaseActionsProvider
-from bridgezero.base_state_features import BaseStateFeatures
+from bridgezero.base.base_actions_provider import BaseActionsProvider
+from bridgezero.base.base_state_features import BaseStateFeatures
 from bridgezero.state import State
 
 

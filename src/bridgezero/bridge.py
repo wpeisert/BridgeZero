@@ -21,3 +21,6 @@ class Bridge:
         :return: bid index (action number)
         """
         raise NotImplementedError()
+
+    def get_allowed_bids(bidding):
+        raise NotImplementedError()

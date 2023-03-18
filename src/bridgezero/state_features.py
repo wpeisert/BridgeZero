@@ -1,6 +1,6 @@
 import numpy as np
 from bridgezero import constants
-from bridgezero.base_state_features import BaseStateFeatures
+from bridgezero.base.base_state_features import BaseStateFeatures
 from bridgezero.state import State
 
 class StateFeatures(BaseStateFeatures):
