@@ -12,6 +12,3 @@ class ActionsProvider(BaseActionsProvider):
 
     def get_allowed_actions_list(self, state : State):
         return Bridge.get_allowed_bids(state.bidding)
-
-    def get_forbidden_actions_list(self, state : State):
-        raise NotImplementedError("BaseActionsProvider.get_forbidden_actions_list not implemented")

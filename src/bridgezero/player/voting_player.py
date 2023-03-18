@@ -2,14 +2,12 @@
 import random
 
 from bridgezero.base.base_player import BasePlayer
-from bridgezero.player.pass_player import PassPlayer
-from bridgezero.player.random_player import RandomPlayer
 
 
 class VotingPlayer(BasePlayer):
     """
-    Player which acts as a random player with probability given in constructor;
-    and acts as pass player with the remaining probability
+    Player gets a list of players and the probabilities.
+    Uses all players (so they can do their stuff), but decides randomly due to given probability weights
     """
     def __init__(self, players_classes, p = None):
         self.players = []
