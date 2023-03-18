@@ -42,7 +42,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         {
             "state_feature_coder" : BaseStateFeatures
 
-            "discount" : float
+            "discount" : float  # currently not used
 
             "actor_step_size": float,
             "critic_step_size": float,
