@@ -1,7 +1,9 @@
 import numpy as np
 from bridgezero import constants
+from bridgezero.base_state_features import BaseStateFeatures
+from bridgezero.state import State
 
-class StateFeatures:
+class StateFeatures(BaseStateFeatures):
     """
     This class encodes state into features.
 
@@ -46,7 +48,7 @@ class StateFeatures:
         self.pc_tiles_width = pc_tiles_width
         self.last_bids_count = last_bids_count
 
-    def get_features(self, cards, bidding, we_vulnerable, they_vulnerable):
+    def get_features(self, state : State):
         raise NotImplementedError("StateFeatures.get_features not implemented")
         return np.array([0] * 373) # 373 - default number of features
 

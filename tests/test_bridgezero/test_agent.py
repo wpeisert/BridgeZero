@@ -34,8 +34,9 @@ def test_agent_start():
     state = State()
 
     action = agent.agent_start(state)
+    assert action == 2
+    assert agent.last_features.tolist() == [0, 1, 2, 3]
     action = agent.agent_start(state)
-    a = 1
+    assert action == 1
+    assert agent.last_features.tolist() == [0, 2, 4, 6]
 
-
-test_agent_start()

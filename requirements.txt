@@ -2,4 +2,6 @@ setuptools
 tox
 black
 isort
+numpy
+scipy
 -e .
