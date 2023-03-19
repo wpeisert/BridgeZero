@@ -16,20 +16,14 @@ class SometimesRandomPlayer(BasePlayer):
         self.random_player = RandomPlayer()
         self.p = min(1, max(0, p))
 
-    def player_init(self, cards, we_vulnerable, they_vulnerable):
+    def player_init(self, seat, hand, we_vulnerable, they_vulnerable):
         pass
 
-    def player_bid(self, bidding):
-        return self._get_move(bidding)
-
-    def player_next_bid(self, reward, bidding):
-        return self._get_move(bidding)
+    def player_bid(self, reward, bidding):
+        if random.random() < self.p:
+            return self.pass_player.player_bid(reward, bidding)
+        else:
+            return self.random_player.player_bid(reward, bidding)
 
     def player_end_info(self, reward, finished_bidding):
         pass
-
-    def _get_move(self, bidding):
-        if random.random() < self.p:
-            return self.pass_player.player_bid(bidding)
-        else:
-            return self.random_player.player_bid(bidding)

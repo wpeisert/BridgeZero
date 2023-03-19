@@ -3,13 +3,14 @@ class State:
     This class keeps state
     """
 
-    PROPERTIES = ['cards', 'bidding', 'we_vulnerable', 'they_vulnerable'];
+    PROPERTIES = ['seat', 'hand', 'bidding', 'we_vulnerable', 'they_vulnerable']
 
     def __init__(self, **kwargs):
 
         #for prop in State.PROPERTIES:
         #    setattr(self, prop, None)
-        self.cards = None
+        self.seat = None
+        self.hand = None
         self.bidding = None
         self.we_vulnerable = None
         self.they_vulnerable = None

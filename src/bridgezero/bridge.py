@@ -22,5 +22,8 @@ class Bridge:
         """
         raise NotImplementedError()
 
-    def get_allowed_bids(bidding):
+    def get_allowed_bids_list(bidding):
         raise NotImplementedError()
+
+    def get_next_player_name(player_name):
+        return constants.PLAYERS_NAMES[ (constants.PLAYERS_NAMES.index(player_name) + 1) % constants.PLAYERS_COUNT ]

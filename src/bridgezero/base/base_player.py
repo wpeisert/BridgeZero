@@ -3,22 +3,15 @@
 class BasePlayer:
     """Base class for players
     """
-    def player_init(self, cards, we_vulnerable, they_vulnerable):
-        """Player gets his cards and vulnerability info
+    def player_init(self, seat, hand, we_vulnerable, they_vulnerable):
+        """Player gets his hand and vulnerability info
         Here can: initiate RL agent
         """
         raise NotImplementedError()
 
-    def player_bid(self, bidding):
-        """Player starts bidding
-            Places his bid
-        """
-        raise NotImplementedError()
-
-    def player_next_bid(self, reward, bidding):
-        """Player continues bidding
-        Although during bidding no reward exists,
-        there may be used EXTERNAL ADVISORY LEARNING
+    def player_bid(self, reward, bidding):
+        """Player places his bid
+        Returns: bid
         """
         raise NotImplementedError()
 

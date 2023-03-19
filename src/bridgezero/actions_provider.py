@@ -11,4 +11,4 @@ class ActionsProvider(BaseActionsProvider):
         Bridge.get_all_actions_count()
 
     def get_allowed_actions_list(self, state : State):
-        return Bridge.get_allowed_bids(state.bidding)
+        return Bridge.get_allowed_bids_list(state.bidding)
