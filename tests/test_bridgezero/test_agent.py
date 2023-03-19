@@ -24,6 +24,9 @@ class ActionsProviderTestHelper(BaseActionsProvider):
     def get_all_actions_count(self):
         return 3
 
+    def get_allowed_actions_list(self, state : State):
+        return [0, 1, 2]
+
 
 def get_initiated_agent():
     agent_info = {
