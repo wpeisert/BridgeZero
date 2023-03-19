@@ -20,19 +20,19 @@ class VotingPlayer(BasePlayer):
         for player in self.players:
             player.player_init(cards, we_vulnerable, they_vulnerable)
 
-    def player_start(self, bidding):
+    def player_bid(self, bidding):
         self.results = []
         for player in self.players:
             self.results.append(player.player_start(bidding))
         return self._get_result()
 
-    def player_step(self, reward, bidding):
+    def player_next_bid(self, reward, bidding):
         self.results = []
         for player in self.players:
             self.results.append(player.player_step(reward, bidding))
         return self._get_result()
 
-    def player_end(self, reward, finished_bidding):
+    def player_end_info(self, reward, finished_bidding):
         for player in self.players:
             self.results.append(player.player_step(reward, finished_bidding))
 

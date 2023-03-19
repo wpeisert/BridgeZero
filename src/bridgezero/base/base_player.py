@@ -9,20 +9,20 @@ class BasePlayer:
         """
         raise NotImplementedError()
 
-    def player_start(self, bidding):
+    def player_bid(self, bidding):
         """Player starts bidding
             Places his bid
         """
         raise NotImplementedError()
 
-    def player_step(self, reward, bidding):
+    def player_next_bid(self, reward, bidding):
         """Player continues bidding
         Although during bidding no reward exists,
         there may be used EXTERNAL ADVISORY LEARNING
         """
         raise NotImplementedError()
 
-    def player_end(self, reward, finished_bidding):
+    def player_end_info(self, reward, finished_bidding):
         """Player gets final reward
         Also he can check the final bidding (e.g. to scream on the partner; or, better to learn something)
         """
