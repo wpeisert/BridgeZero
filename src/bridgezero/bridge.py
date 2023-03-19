@@ -10,7 +10,7 @@ class Bridge:
     def get_random_initial_state():
         raise NotImplementedError()
 
-    def getAllowedActions(state : State):
+    def getAllowedActions(state: State):
         raise NotImplementedError()
 
     def get_all_actions_count():
@@ -23,6 +23,12 @@ class Bridge:
         raise NotImplementedError()
 
     def get_allowed_bids_list(bidding):
+        raise NotImplementedError()
+
+    def is_bidding_finished(bidding):
+        raise NotImplementedError()
+
+    def get_biding_ns_result(deal, bidding):
         raise NotImplementedError()
 
     def get_next_player_name(player_name):

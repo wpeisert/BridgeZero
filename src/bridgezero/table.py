@@ -9,7 +9,6 @@ class Table:
     2. Organizes playing for all players (checking correctness of bidding)
     3. Returns tabular and summary results (and stores them to file)
     """
-
     def __init__(self):
         self.players = {} # dictionary: seat -> player obj; e.g. 'N' -> playerObj
 

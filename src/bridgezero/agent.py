@@ -21,6 +21,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         self.critic_step_size = None
         self.avg_reward_step_size = None
 
+        self.features_count = None
         self.state_feature_coder: BaseStateFeatures = BaseStateFeatures()
         self.actions_provider: BaseActionsProvider = BaseActionsProvider()
 
@@ -28,6 +29,7 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         self.critic_w = None
         self.actor_w = None
 
+        self.actions_count = None
         self.actions = None
 
         self.softmax_prob = None

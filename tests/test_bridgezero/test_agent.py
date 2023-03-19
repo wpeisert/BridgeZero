@@ -20,11 +20,12 @@ class StateFeaturesTestHelper(BaseStateFeatures):
         features = np.array([self.counter * i for i in range(StateFeaturesTestHelper.FEATURES_CNT)])
         return features
 
+
 class ActionsProviderTestHelper(BaseActionsProvider):
     def get_all_actions_count(self):
         return 3
 
-    def get_allowed_actions_list(self, state : State):
+    def get_allowed_actions_list(self, state: State):
         return [0, 1, 2]
 
 
@@ -57,6 +58,7 @@ def test_agent_start():
     action = agent.agent_start(state)
     assert action == 1
     assert agent.last_features.tolist() == [0, 2, 4, 6]
+
 
 def test_agent_step():
 
