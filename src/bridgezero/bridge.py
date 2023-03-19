@@ -1,35 +1,46 @@
 #!/usr/bin/env python
 from bridgezero import constants
-from bridgezero.state import State
+from bridgezero.bridge_bidding_checker import BridgeBiddingChecker
 
 
 class Bridge:
     """
     Class provides all bridge functionalities
     """
+    @staticmethod
     def get_random_initial_state():
         raise NotImplementedError()
 
-    def getAllowedActions(state: State):
-        raise NotImplementedError()
-
+    @staticmethod
     def get_all_actions_count():
         return constants.ALL_POSSIBLE_BIDS_COUNT
 
+    @staticmethod
     def get_bid_by_name(bid_name: str):
-        """
-        :return: bid index (action number)
-        """
-        raise NotImplementedError()
+        return constants.ALL_BIDS.index(bid_name)
 
+    @staticmethod
     def get_allowed_bids_list(bidding):
-        raise NotImplementedError()
+        return BridgeBiddingChecker.get_allowed_bids_list(bidding)
 
+    @staticmethod
     def is_bidding_finished(bidding):
-        raise NotImplementedError()
+        return BridgeBiddingChecker.is_bidding_finished(bidding)
 
+    @staticmethod
     def get_biding_ns_result(deal, bidding):
-        raise NotImplementedError()
+        return 0
+        # TODO implement
 
+    @staticmethod
+    def print_bidding(bidding):
+        print('')
+        for i, bid in enumerate(bidding):
+            print(constants.ALL_BIDS[bid], end=('\n' if i%4==3 else '\t'))
+        # TODO improve
+        print('')
+        print('')
+
+    @staticmethod
     def get_next_player_name(player_name):
         return constants.PLAYERS_NAMES[ (constants.PLAYERS_NAMES.index(player_name) + 1) % constants.PLAYERS_COUNT ]

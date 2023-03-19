@@ -6,7 +6,7 @@ from bridgezero.bridge import Bridge
 
 class PassPlayer(BasePlayer):
     def __init__(self):
-        self.bid_pass = Bridge.get_bid_by_name(constants.BID_PASS)
+        self.bid_pass = Bridge.get_bid_by_name("pass")
 
     def player_init(self, seat, hand, we_vulnerable, they_vulnerable):
         pass

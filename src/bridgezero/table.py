@@ -9,8 +9,10 @@ class Table:
     2. Organizes playing for all players (checking correctness of bidding)
     3. Returns tabular and summary results (and stores them to file)
     """
-    def __init__(self):
+    def __init__(self, players = None):
         self.players = {} # dictionary: seat -> player obj; e.g. 'N' -> playerObj
+        if players is not None:
+            self.set_players(players)
 
     def set_players(self, players):
         for (player_name, player_obj) in zip(constants.PLAYERS_NAMES, players):
@@ -61,7 +63,9 @@ class Table:
         self.players['W'].player_end_info(-result_ns, bidding)
         self.players['E'].player_end_info(-result_ns, bidding)
 
-        raise NotImplementedError("MORE TO DO: Here save bidding and results info round data")
+        return {"bidding": bidding, "result_ns": result_ns}
+
+        # TODO - MORE TO DO: Here save bidding and results info round data
 
     def begin_round(self, round_info: str = None):
         raise NotImplementedError()

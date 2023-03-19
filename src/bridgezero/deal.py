@@ -7,9 +7,9 @@ class Deal:
     """
 
     def __init__(self, hands = None, dealer = None, side_ns_vulnerable: bool = None, side_ew_vulnerable: bool = None):
-        if hands is None:
-            hands = {}
-        self.hands = hands # dictionary: seat -> hand; e.g. 'N' -> cards on hand
+        self.hands = {}
+        if hands is not None:
+            self.set_hands(hands) # dictionary: seat -> hand; e.g. 'N' -> cards on hand
         self.dealer = dealer # one of constants.PLAYERS_NAMES
         self.side_ns_vulnerable = side_ns_vulnerable
         self.side_ew_vulnerable = side_ew_vulnerable
