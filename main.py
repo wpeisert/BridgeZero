@@ -48,4 +48,10 @@ result = table.play_deal(deal)
 Bridge.print_bidding(result['bidding'])
 print(result)
 
-dds.run()
+pbn = deal.get_as_PBN()
+print(pbn)
+
+dd_results = dds.run_dds([deal])
+#print(dd_results)
+for a,b in dd_results[0].items():
+    print("{}: {}".format(a, b))
