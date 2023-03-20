@@ -39,10 +39,13 @@ from bridgezero.player.pass_player import PassPlayer
 from bridgezero.player.random_player import RandomPlayer
 from bridgezero.player.sometimes_random_player import SometimesRandomPlayer
 from bridgezero.table import Table
+import bridgezero.dds as dds
 
-players = [PassPlayer(), RandomPlayer(),  RandomPlayer(), SometimesRandomPlayer(0.3)]
+players = [SometimesRandomPlayer(), SometimesRandomPlayer(),  SometimesRandomPlayer(), SometimesRandomPlayer(0.3)]
 table = Table(players)
 deal = DealGenerator.get_random_deal()
 result = table.play_deal(deal)
 Bridge.print_bidding(result['bidding'])
 print(result)
+
+dds.run()
