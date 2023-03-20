@@ -1,4 +1,5 @@
 from bridgezero import constants
+from bridgezero.hand import Hand
 
 
 class Deal:
@@ -51,29 +52,6 @@ class Deal:
     def get_as_PBN(self):
         str = 'N:'
         for player_name in constants.PLAYERS_NAMES:
-            str += ('' if player_name == 'N' else ' ') + self.get_hand_as_PBN(player_name);
+            str += ('' if player_name == 'N' else ' ') + Hand.hand_to_PBN(self.get_hand(player_name))
 
         return str
-
-    def get_hand_as_PBN(self, player_name):
-
-        hand = self.get_hand(player_name)
-
-        cards = {}
-
-        for color_no in range(constants.COLORS_COUNT):
-            cards[color_no] = []
-
-        for card_no in hand:
-            card_color_no = card_no // constants.CARDS_IN_COLOR_COUNT
-            card_in_color_no = card_no % constants.CARDS_IN_COLOR_COUNT
-            cards[card_color_no].append(card_in_color_no)
-
-        for color_no in range(constants.COLORS_COUNT):
-            cards[color_no].sort()
-            cards[color_no][:] = map(lambda card_in_color_no: constants.CARDS_NAMES[card_in_color_no], cards[color_no])
-            cards[color_no] = "".join(cards[color_no])
-
-        pbn = ".".join(cards.values())
-
-        return pbn
