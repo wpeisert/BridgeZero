@@ -15,6 +15,9 @@ class Deal:
         self.side_ns_vulnerable = side_ns_vulnerable
         self.side_ew_vulnerable = side_ew_vulnerable
 
+        self.analysis = {}
+
+
     # setters
 
     def set_hands(self, hands):
@@ -34,6 +37,9 @@ class Deal:
         self.side_ew_vulnerable = side_ew_vulnerable
 
     # getters
+
+    def get_hands(self):
+        return self.hands
 
     def get_hand(self, player_name):
         return self.hands[player_name]

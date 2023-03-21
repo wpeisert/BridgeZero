@@ -38,4 +38,7 @@ def run_dds(deals):
             continue
         dd_results.append(dds_parse_result(line))
 
+    if len(deals) != len(dd_results):
+        raise Exception("Wrong output size. Input size: {}. Output size: {}.".format(len(deals), len(dd_results)))
+
     return dd_results
