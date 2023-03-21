@@ -28,11 +28,6 @@ class Bridge:
         return BridgeBiddingChecker.is_bidding_finished(bidding)
 
     @staticmethod
-    def get_biding_ns_result(deal, bidding):
-        return 0
-        # TODO implement
-
-    @staticmethod
     def print_bidding(bidding):
         print('')
         for i, bid in enumerate(bidding):
@@ -42,5 +37,5 @@ class Bridge:
         print('')
 
     @staticmethod
-    def get_next_player_name(player_name):
-        return constants.PLAYERS_NAMES[ (constants.PLAYERS_NAMES.index(player_name) + 1) % constants.PLAYERS_COUNT ]
+    def get_next_player_name(player_name, step = 1):
+        return constants.PLAYERS_NAMES[ (constants.PLAYERS_NAMES.index(player_name) + step) % constants.PLAYERS_COUNT ]

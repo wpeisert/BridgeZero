@@ -7,7 +7,7 @@ from bridgezero.DealAnalysis.filters.SameResultForBothDeclarersInSide import Sam
 
 class DealAnalyser:
     @staticmethod
-    def analyseDeal(self, deal):
+    def analyseDeal(deal):
         tricksProbabilities = ProbabilityCalculator.calculateHandsTricksProbabilities(deal.get_hands(), 'NS')
 
         contractsEvaluated = ContractService.evaluateContracts(

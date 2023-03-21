@@ -1,4 +1,5 @@
 from bridgezero import constants
+from bridgezero.Bidding.BiddingService import BiddingService
 from bridgezero.bridge import Bridge
 
 
@@ -55,8 +56,9 @@ class Table:
                 break
             current_player = Bridge.get_next_player_name(current_player)
 
+        Bridge.print_bidding(bidding)
         # bidding finished
-        result_ns = Bridge.get_biding_ns_result(deal, bidding)
+        result_ns = BiddingService.calculate_ns_result(deal, bidding)
 
         self.players['N'].player_end_info(result_ns, bidding)
         self.players['S'].player_end_info(result_ns, bidding)

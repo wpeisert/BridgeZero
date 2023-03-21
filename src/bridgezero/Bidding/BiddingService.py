@@ -1,13 +1,15 @@
 from bridgezero.Bidding.BiddingParser import BiddingParser
 from bridgezero.Bidding.Tools import Tools
 from bridgezero.Contract.ContractValueService import ContractValueService
+from bridgezero.DealAnalysis.DealAnalyser import DealAnalyser
 
 
 class BiddingService:
     @staticmethod
-    def calculateResults(deal, bidding):
-        actualContract = BiddingParser.getContractWithoutVulnerability(bidding)
-        res = {'contract': actualContract.getHash()}
+    def calculate_ns_result(deal, bidding):
+        actualContract = BiddingParser.getContractWithoutVulnerability(deal, bidding)
+        if not len(deal.analysis):
+            DealAnalyser.analyseDeal(deal)
         minimaxEv = deal.analysis.minimax_ev_NS
 
         if actualContract.isPass():
@@ -22,6 +24,6 @@ class BiddingService:
                 tricksProbabilities.getProbabilities(actualContract.declarer, actualContract.bidColor)
             )
 
-            res = ev - minimaxEv
+        res = ev - minimaxEv
 
         return res

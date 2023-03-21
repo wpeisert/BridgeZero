@@ -43,7 +43,7 @@ class BridgeBiddingChecker:
         # color bids
         last_color_bid = BridgeBiddingChecker.get_last_color_bid(bidding)
         first_available_color_bid = last_color_bid + 1
-        bids = bids + [bid for bid in range(first_available_color_bid, len(constants.COLOR_BIDS))]
+        bids = bids + [bid for bid in range(first_available_color_bid, constants.COLOR_BIDS_COUNT)]
 
         return bids
 
@@ -53,7 +53,7 @@ class BridgeBiddingChecker:
     def is_color_bid(bidding, inx):
         if not BridgeBiddingChecker.is_valid_inx(bidding, inx):
             return False
-        return bidding[inx] < len(constants.COLOR_BIDS)
+        return bidding[inx] < constants.COLOR_BIDS_COUNT
 
     @staticmethod
     def is_pass(bidding, inx):
@@ -81,3 +81,12 @@ class BridgeBiddingChecker:
     def is_valid_inx(bidding, inx):
         length = len(bidding)
         return -length <= inx < length
+
+    @staticmethod
+    def getFirstColorBidInPairForBid(bidding, lastColorBid):
+        lastColorBidIndex = bidding.index(lastColorBid)
+
+        color = lastColorBid % constants.BIDS_COLORS_COUNT
+        for inx in range(lastColorBidIndex % 2, len(bidding), 2):
+            if bidding[inx] % constants.BIDS_COLORS_COUNT == color:
+                return bidding[inx]
