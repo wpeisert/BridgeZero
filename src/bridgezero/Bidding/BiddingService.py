@@ -10,16 +10,16 @@ class BiddingService:
         actualContract = BiddingParser.getContractWithoutVulnerability(deal, bidding)
         if not len(deal.analysis):
             DealAnalyser.analyseDeal(deal)
-        minimaxEv = deal.analysis.minimax_ev_NS
+        minimaxEv = deal.analysis['minimax_ev_NS']
 
-        if actualContract.isPass():
+        if actualContract.is_pass():
             ev = 0
         else:
             tricksProbabilities = deal.analysis['tricks_probabilities_NS']
             declarerPair = Tools.getPlayerSide(actualContract.declarer)
-            vulnerableFieldName = 'vulnerable_' + declarerPair
+            vulnerableFieldName = 'side_' + declarerPair.lower() + '_vulnerable'
             actualContract.vulnerable = getattr(deal, vulnerableFieldName)
-            ev = ContractValueService.calculateContractExpectedValue(
+            ev = ContractValueService.getContractValue(
                 actualContract,
                 tricksProbabilities.getProbabilities(actualContract.declarer, actualContract.bidColor)
             )

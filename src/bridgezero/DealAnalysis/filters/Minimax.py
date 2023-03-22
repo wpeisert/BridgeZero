@@ -41,7 +41,7 @@ class Minimax:
         coeff = 1 if 'N' in side else -1
         index = None
         max = coeff * (-999999.0)
-        for inx, contractEvaluated in enumerate(contractsEvaluated):
+        for inx, contractEvaluated in contractsEvaluated.items():
             if contractEvaluated['contract'].declarer not in side:
                 continue
             if coeff * contractEvaluated['ev'] > coeff * max:

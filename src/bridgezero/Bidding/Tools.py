@@ -3,8 +3,10 @@ from bridgezero import constants
 
 class Tools:
     @staticmethod
-    def getPlayerSide(self):
-        raise NotImplementedError()
+    def getPlayerSide(playerName):
+        for side in constants.SIDES_NAMES:
+            if playerName in side:
+                return side
 
     @staticmethod
     def getPartner(playerName):

@@ -5,11 +5,11 @@ from bridgezero import constants
 
 class DblRdbl:
     @staticmethod
-    def filter(contractsIn):
+    def filter(contractsEvaluated):
         contractsFiltered = {}
 
-        for contractIn in contractsIn:
-            contract = contractIn['contract']
+        for contractEvaluated in contractsEvaluated.values():
+            contract = contractEvaluated['contract']
 
             coeff = 1 if contract.declarer in 'NS' else -1
             contracts = []
@@ -19,10 +19,10 @@ class DblRdbl:
                 contractTmp = copy.deepcopy(contract)
                 contractTmp.type = type
                 hash = contractTmp.getHash()
-                exists = hash in contracts[hash]
+                exists = hash in contractsEvaluated
                 contracts.append(contractTmp)
-                data.append(coeff * contracts[hash]['ev'] if exists else None)
-                evs.append(contracts[hash]['ev'] if exists else None)
+                data.append(coeff * contractsEvaluated[hash]['ev'] if exists else None)
+                evs.append(contractsEvaluated[hash]['ev'] if exists else None)
 
             indices = DblRdbl.getRemainingIndices(*data)
 
@@ -55,11 +55,11 @@ class DblRdbl:
             return [1] if val0 > val1 else [0]
 
         if val0 is None:
-            return 2 if val2 > val1 else [1]
+            return [2] if val2 > val1 else [1]
 
         # all not null
 
-        if (val0 < val1 or val2 > val0):
+        if val0 < val1 or val2 > val0:
             return [0]
         else:
             return [2] if val2 > val1 else [1]

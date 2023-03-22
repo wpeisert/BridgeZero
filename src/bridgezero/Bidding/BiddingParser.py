@@ -16,7 +16,7 @@ class BiddingParser:
         firstColorBidIndex = bidding.index(firstColorBid)
 
         declarer = Bridge.get_next_player_name(deal.dealer, firstColorBidIndex)
-        bidColor = lastColorBid % constants.BIDS_COLORS_COUNT
+        bidColor = constants.BIDS_COLORS[lastColorBid % constants.BIDS_COLORS_COUNT]
         level = lastColorBid // constants.BIDS_COLORS_COUNT + 1
         type = ''
         bids = bidding[lastColorBidIndex:]

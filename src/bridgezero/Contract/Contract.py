@@ -1,3 +1,6 @@
+from bridgezero import constants
+
+
 class Contract:
     def __init__(self, **kwargs):
         self.declarer = kwargs.get('declarer')

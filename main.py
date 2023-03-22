@@ -47,6 +47,7 @@ deal = DealGenerator.get_random_deal()
 result = table.play_deal(deal)
 Bridge.print_bidding(result['bidding'])
 print(result)
+print(deal.analysis)
 
 #pbn = deal.get_as_PBN()
 #print(pbn)
