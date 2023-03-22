@@ -45,14 +45,21 @@ players = [SometimesRandomPlayer(), PassPlayer(), RandomPlayer(), SometimesRando
 table = Table(players)
 deal = DealGenerator.get_random_deal()
 result = table.play_deal(deal)
+
+
+print()
+print("Deal: {}.".format(deal.get_as_PBN()))
+print("Dealer: {}".format(deal.dealer))
 Bridge.print_bidding(result['bidding'])
-print(result)
-print(deal.analysis)
+print("Contract: {}".format(result['contract'].getHash()))
+print("Result NS: {}".format(result['result_ns']))
 
-#pbn = deal.get_as_PBN()
-#print(pbn)
+print("Minimax: {}".format(deal.analysis['minimax_contract_NS']))
+print("Minimax value NS: {}".format(deal.analysis['minimax_ev_NS']))
 
-#dd_results = dds.run_dds([deal])
-#print(dd_results)
-#for a,b in dd_results[0].items():
-#    print("{}: {}".format(a, b))
+#print(deal.analysis)
+
+for a,b in deal.analysis['tricks_probabilities_NS'].probs.items():
+    print("{}: {}".format(a, b))
+
+print()

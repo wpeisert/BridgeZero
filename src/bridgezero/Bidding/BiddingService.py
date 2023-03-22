@@ -26,4 +26,4 @@ class BiddingService:
 
         res = ev - minimaxEv
 
-        return res
+        return (res, actualContract)

@@ -56,16 +56,15 @@ class Table:
                 break
             current_player = Bridge.get_next_player_name(current_player)
 
-        Bridge.print_bidding(bidding)
         # bidding finished
-        result_ns = BiddingService.calculate_ns_result(deal, bidding)
+        result_ns, contract = BiddingService.calculate_ns_result(deal, bidding)
 
         self.players['N'].player_end_info(result_ns, bidding)
         self.players['S'].player_end_info(result_ns, bidding)
         self.players['W'].player_end_info(-result_ns, bidding)
         self.players['E'].player_end_info(-result_ns, bidding)
 
-        return {"bidding": bidding, "result_ns": result_ns}
+        return {"bidding": bidding, "result_ns": result_ns, "contract": contract}
 
         # TODO - MORE TO DO: Here save bidding and results info round data
 
