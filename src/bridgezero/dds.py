@@ -14,7 +14,7 @@ def dds_parse_result(line: str):
     iter = 0
     for player_name in constants.PLAYERS_NAMES:
         for bid_color in constants.BIDS_COLORS:
-            tricks[player_name][bid_color] = arr[iter]
+            tricks[player_name][bid_color] = int(arr[iter])
             iter += 1
 
     return tricks

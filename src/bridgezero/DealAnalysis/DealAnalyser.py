@@ -8,14 +8,12 @@ from bridgezero.DealAnalysis.filters.SameResultForBothDeclarersInSide import Sam
 class DealAnalyser:
     @staticmethod
     def analyseDeal(deal):
-        tricksProbabilities = ProbabilityCalculator.calculateHandsTricksProbabilities(deal.get_hands(), 'NS')
+        tricksProbabilities = ProbabilityCalculator.calculateHandsTricksProbabilities(deal)
 
         contractsEvaluated = ContractService.evaluateContracts(
             ContractService.getAllContracts(
-                {
-                    'vulnerable_NS': deal.get_side_ns_vulnerable(),
-                    'vulnerable_WE': deal.get_side_ew_vulnerable()
-                }
+                vulnerable_NS=deal.get_side_ns_vulnerable(),
+                vulnerable_EW=deal.get_side_ew_vulnerable()
             ),
             tricksProbabilities
         )

@@ -27,4 +27,4 @@ class BiddingParser:
         elif bid_dbl in bids:
             type = 'dbl'
 
-        return Contract(declarer, bidColor, level, type)
+        return Contract(declarer=declarer, bidColor=bidColor, level=level, type=type)
