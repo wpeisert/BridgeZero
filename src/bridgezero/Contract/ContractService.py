@@ -50,3 +50,9 @@ class ContractService:
                             )
 
         return contracts
+
+    @staticmethod
+    def isLower(contract1: Contract, contract2: Contract) -> bool:
+        return contract1.level < contract2.level or \
+            contract1.level == contract2.level and \
+            constants.BIDS_COLORS.index(contract1.bidColor) < constants.BIDS_COLORS.index(contract2.bidColor)

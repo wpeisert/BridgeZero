@@ -9,10 +9,10 @@ class SameResultForBothDeclarersInSide:
         contractsFiltered = {}
 
         for hash1, contractIn in contractsIn.items():
-            contract1 = copy.deepcopy(contract['contract'])
+            contract1 = copy.deepcopy(contractIn['contract'])
             ev1 = contractIn['ev']
 
-            contract2 = contractIn['contract']
+            contract2 = copy.deepcopy(contractIn['contract'])
             contract2.declarer = Tools.getPartner(contract2.declarer)
             hash2 = contract2.getHash()
 
@@ -21,7 +21,7 @@ class SameResultForBothDeclarersInSide:
                     'contract': contract1,
                     'ev': ev1,
                 }
-            continue
+                continue
 
             ev2 = contractsIn[hash2]['ev']
 
@@ -32,7 +32,6 @@ class SameResultForBothDeclarersInSide:
                     'contract': contract1,
                     'ev': ev1,
                 }
-
                 continue
 
             contractsFiltered[hash1] = {
