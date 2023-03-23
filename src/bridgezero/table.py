@@ -22,12 +22,12 @@ class Table:
     def set_player(self, player_name, player_obj):
         self.players[player_name] = player_obj
 
-    def play_round(self, deals, round_info: str = None):
-        self.begin_round(round_info)
+    def play_deals(self, deals):
+        total_ns = 0
         for deal in deals:
             result = self.play_deal(deal)
-        self.end_round()
-        raise NotImplementedError()
+            total_ns += result['result_ns']
+        return total_ns
 
     def play_deal(self, deal):
         """
@@ -67,9 +67,3 @@ class Table:
         return {"bidding": bidding, "result_ns": result_ns, "contract": contract}
 
         # TODO - MORE TO DO: Here save bidding and results info round data
-
-    def begin_round(self, round_info: str = None):
-        raise NotImplementedError()
-
-    def end_round(self):
-        raise NotImplementedError()
