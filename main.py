@@ -48,7 +48,8 @@ result = table.play_deal(deal)
 
 
 print()
-print("Deal: {}.".format(deal.get_as_PBN()))
+print("Deal: {}".format(deal.get_as_PBN()))
+Bridge.print_deal(deal)
 print("Dealer: {}".format(deal.dealer))
 Bridge.print_bidding(result['bidding'])
 print("Contract: {}".format(result['contract'].getHash()))

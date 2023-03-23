@@ -7,6 +7,8 @@ PLAYERS_CARDS_COUNT = 13
 
 COLORS_COUNT = 4
 COLORS_NAMES = ['S', 'H', 'D', 'C']
+COLORS_PRINT_SYMBOLS = [chr(0x2660), chr(0x2665), chr(0x2666), chr(0x2663)]
+COLORS_PRINT_SYMBOLS_WHITE = [chr(0x2664), chr(0x2661), chr(0x2662), chr(0x2667)]
 
 CARDS_NAMES = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
 

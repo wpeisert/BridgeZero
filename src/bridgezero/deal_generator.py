@@ -17,7 +17,7 @@ class DealGenerator:
         np.random.shuffle(cards)
         hands = []
         for player_no in range(constants.PLAYERS_COUNT):
-            hands.append(cards[player_no * constants.PLAYERS_CARDS_COUNT: (player_no+1) * constants.PLAYERS_CARDS_COUNT - 1])
+            hands.append(cards[player_no * constants.PLAYERS_CARDS_COUNT: (player_no+1) * constants.PLAYERS_CARDS_COUNT])
         # generate other data
         dealer = random.choice(constants.PLAYERS_NAMES)
         side_ns_vulnerable = random.choice([True, False])
