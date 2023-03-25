@@ -20,7 +20,7 @@ class SometimesRandomPlayer(BasePlayer):
         pass
 
     def player_bid(self, reward, bidding):
-        if random.random() < self.p:
+        if random.random() > self.p:
             return self.pass_player.player_bid(reward, bidding)
         else:
             return self.random_player.player_bid(reward, bidding)
