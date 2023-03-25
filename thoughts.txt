@@ -1,0 +1,33 @@
+Now comments in Polish - just to free my mind......
+
+Teraz chcemy uzyskac konkretne scenariusze:
+
+1. Siadają czterej gracze do gry i grają określoną liczbę rozdań. Widzę rezultat (IMP)
+
+2. Mogę zdefiniować konkretnych graczy (nazwijmy ich: gracze nazwani - named players);
+chodzi o to, by ten konkretny gracz mógł sobie zapisywać i wczytywać mózg
+
+3. Koncepcja: mózg gracza
+
+Ma to wyglądać tak:
+
+Stała definicja:
+players = [
+    {
+        name: 'Wojtek',
+        class: 'RLagent',
+        init_info: {
+            actor_step_size: 0.01
+        }
+    },
+    {
+        name: 'Passer',
+        class: PassPlayer,
+        brain: False,
+    },
+    {
+        name: 'Totally crazy',
+        class: PassPlayer
+    },
+
+]

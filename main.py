@@ -1,43 +1,21 @@
-# Now comments in Polish - just to free my mind......
+"""
+
+Now:
+
+1. It seems that in some circumstances, deal analysis hloops inifinitely
+2. We need more tests
+3. Main load comes from deal analysis, so it is reasonable to prepare a database of analysed deals and usage of it (many uses of each deal)
+
+But the above points are a bit boring. What is really sexy:
+
+1. Implementation of brain (understood as storing and loading learned weights; maybe together with learning parameters)
+
+What are the players:
+
+1. Player has:
+ a) used algorithm (SARSA, Monte Carlo, Actor-Critic, ..)
+ b) features functions (currently I have State and StateFeatures classes)
+ c) approximation functions for : e.g. linear, quadratic, NN
+ d) algorithm learning parameters (alpha_w, alpha_theta, ...
 
 """
-Teraz chcemy uzyskac konkretne scenariusze:
-
-1. Siadają czterej gracze do gry i grają określoną liczbę rozdań. Widzę rezultat (IMP)
-
-2. Mogę zdefiniować konkretnych graczy (nazwijmy ich: gracze nazwani - named players);
-chodzi o to, by ten konkretny gracz mógł sobie zapisywać i wczytywać mózg
-
-3. Koncepcja: mózg gracza
-
-Ma to wyglądać tak:
-
-Stała definicja:
-players = [
-    {
-        name: 'Wojtek',
-        class: 'RLagent',
-        init_info: {
-            actor_step_size: 0.01
-        }
-    },
-    {
-        name: 'Passer',
-        class: PassPlayer,
-        brain: False,
-    },
-    {
-        name: 'Totally crazy',
-        class: PassPlayer
-    },
-
-]
-"""
-from bridgezero.bridge import Bridge
-from bridgezero.deal_generator import DealGenerator
-from bridgezero.player.pass_player import PassPlayer
-from bridgezero.player.random_player import RandomPlayer
-from bridgezero.player.sometimes_random_player import SometimesRandomPlayer
-from bridgezero.table import Table
-import bridgezero.dds as dds
-import numpy as np
