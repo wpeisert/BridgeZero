@@ -13,19 +13,17 @@ from bridgezero.base.base_state_features import BaseStateFeatures
 from bridgezero.state import State
 
 
-class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
+class OneStepActorCriticEpisodic_agent(BaseAgent):
     def __init__(self):
         self.rand_generator = None
 
         self.actor_step_size = None
         self.critic_step_size = None
-        self.avg_reward_step_size = None
 
         self.features_count = None
         self.state_feature_coder: BaseStateFeatures = BaseStateFeatures()
         self.actions_provider: BaseActionsProvider = BaseActionsProvider()
 
-        self.avg_reward = None
         self.critic_w = None
         self.actor_w = None
 
@@ -70,13 +68,11 @@ class ActorCriticSoftmaxEpisodicAgent(BaseAgent):
         # set step-size accordingly
         self.actor_step_size = agent_info.get("actor_step_size")
         self.critic_step_size = agent_info.get("critic_step_size")
-        self.avg_reward_step_size = agent_info.get("avg_reward_step_size")
 
         self.actions_count = self.actions_provider.get_all_actions_count()
         self.actions = list(range(self.actions_count))
 
         # Set initial values of average reward, actor weights, and critic weights
-        self.avg_reward = 0.0
         self.features_count = self.state_feature_coder.get_features_count()
         self.actor_w = np.zeros((self.actions_count, self.features_count))
         self.critic_w = np.zeros(self.features_count)
