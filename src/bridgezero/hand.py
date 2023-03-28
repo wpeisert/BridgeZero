@@ -39,3 +39,24 @@ class Hand:
                 hand.append(color_no * constants.CARDS_IN_COLOR_COUNT + constants.CARDS_NAMES.index(card))
 
         return hand
+
+    @staticmethod
+    def getColorCardsCount(hand, color: int):
+        """
+        :param hand: list of cards
+        :param color: 0-3
+        :return: Count of cards of given color: 0-13
+        """
+        minimum = color * constants.CARDS_IN_COLOR_COUNT
+        maximum = (color + 1) * constants.CARDS_IN_COLOR_COUNT - 1
+        summa = sum([1 if minimum <= x <= maximum else 0 for x in hand])
+        return summa
+
+    @staticmethod
+    def getPc(hand):
+        """
+        :param hand: list of cards
+        :return: Total PC
+        """
+        summa = sum([constants.CARDS_PC[x % constants.CARDS_IN_COLOR_COUNT] for x in hand])
+        return summa
