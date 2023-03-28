@@ -1,6 +1,6 @@
 import numpy as np
 
-from bridgezero.agent import ActorCriticSoftmaxEpisodicAgent
+from bridgezero.agent.ActorCriticContinuing_agent import ActorCriticContinuing_agent
 from bridgezero.base.base_actions_provider import BaseActionsProvider
 from bridgezero.base.base_state_features import BaseStateFeatures
 from bridgezero.state import State
@@ -42,7 +42,7 @@ def get_initiated_agent():
         "seed": 33
     }
 
-    agent = ActorCriticSoftmaxEpisodicAgent()
+    agent = ActorCriticContinuing_agent()
     agent.agent_init(agent_info)
 
     return agent

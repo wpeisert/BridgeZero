@@ -15,7 +15,7 @@ CARDS_NAMES = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
 ALL_CARDS_COUNT = len(COLORS_NAMES) * len(CARDS_NAMES)
 
 CARDS_IN_COLOR_COUNT = 13
-CARDS_PC = [4, 3, 2, 1] + ([0] * 9)
+CARDS_PC = [4, 3, 2, 1] + ([0] * (CARDS_IN_COLOR_COUNT - 4))
 MAX_PC = 40
 MAX_PC_PLAYER = 37
 
