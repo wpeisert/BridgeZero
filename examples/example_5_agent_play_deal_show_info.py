@@ -1,4 +1,5 @@
 # ====== PLAY DEAL, SHOW ALL INFO ==================================================================
+from bridgezero import constants
 from bridgezero.bridge import Bridge
 from bridgezero.deal_generator import DealGenerator
 from bridgezero.player.OneStepActorCriticEpisodicAgent_player import OneStepActorCriticEpisodicAgent_player
@@ -13,6 +14,9 @@ deal = DealGenerator.get_random_deal()
 result = table.play_deal(deal)
 
 
+print()
+for player_name, player in zip(constants.PLAYERS_NAMES, players):
+    print("{}: {}".format(player_name, type(player).__name__))
 print()
 print("Deal: {}".format(deal.get_as_PBN()))
 Bridge.print_deal(deal)

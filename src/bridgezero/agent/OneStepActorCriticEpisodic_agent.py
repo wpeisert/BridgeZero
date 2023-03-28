@@ -50,7 +50,6 @@ class OneStepActorCriticEpisodic_agent(BaseAgent):
 
             "actor_step_size": float,
             "critic_step_size": float,
-            "avg_reward_step_size": float,
 
             "seed": int
         }
@@ -179,10 +178,9 @@ class OneStepActorCriticEpisodic_agent(BaseAgent):
 
 
     def calculate_policy_after_step(self, reward: float, is_terminal: bool = False):
-        delta = reward - self.avg_reward + \
-                (0 if is_terminal else self.state_value_function(self.current_features)) - \
+        delta = reward - \
+                (self.state_value_function(self.current_features) if not is_terminal else 0) - \
                 self.state_value_function(self.last_features)
-        self.avg_reward += self.avg_reward_step_size * delta
         self.critic_w += self.last_features * self.critic_step_size * delta
         for a in self.actions:
             if a == self.last_action:
@@ -192,5 +190,7 @@ class OneStepActorCriticEpisodic_agent(BaseAgent):
 
 
     def agent_message(self, message):
-        if message == 'get avg reward':
-            return self.avg_reward
+        if message == 'get actor_w':
+            return self.actor_w
+        if message == 'get critic_w':
+            return self.critic_w
