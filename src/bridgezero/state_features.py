@@ -53,13 +53,21 @@ class StateFeatures(BaseStateFeatures):
         self.state = None
         self.features = None
 
+        self.feature_counts = {
+            'colors': constants.COLORS_COUNT * (constants.CARDS_IN_COLOR_COUNT + 1 + self.colors_tiles_width),
+            'pc': constants.MAX_PC_PLAYER + 1 + self.pc_tiles_width,
+            'vulnerable': 2,
+            'bidding': constants.PLAYERS_COUNT * constants.ALL_POSSIBLE_BIDS_COUNT,
+            'last_bids': constants.ALL_POSSIBLE_BIDS_COUNT * self.last_bids_count
+        }
+
     def get_features_count(self):
         return \
-            constants.COLORS_COUNT * (constants.CARDS_IN_COLOR_COUNT + 1 + self.colors_tiles_width) + \
-            constants.MAX_PC_PLAYER + 1 + self.pc_tiles_width + \
-            2 + \
-            constants.PLAYERS_COUNT * constants.ALL_POSSIBLE_BIDS_COUNT + \
-            constants.ALL_POSSIBLE_BIDS_COUNT * self.last_bids_count
+            self.feature_counts['colors'] + \
+            self.feature_counts['pc'] + \
+            self.feature_counts['vulnerable'] + \
+            self.feature_counts['bidding'] + \
+            self.feature_counts['last_bids']
 
     def get_features(self, state : State):
         # raise NotImplementedError("StateFeatures.get_features not implemented")
@@ -69,6 +77,8 @@ class StateFeatures(BaseStateFeatures):
         self._add_colors()
         self._add_pc()
         self._add_vulnerable()
+        self._add_biddings()
+        self._add_last_bids()
 
         return self.features
 
@@ -96,8 +106,7 @@ class StateFeatures(BaseStateFeatures):
         - tilings for PCs: (-pc_tiles_width) - 0, (-pc_tiles_width+1) - 1, ..., 0-pc_tiles_width, 1-(pc_tiles_width+1), ..., 37 - (pc_tiles_width+37);
         this gives BINARY features cnt: 37 + pc_tiles_width
         """
-        features_per_color = constants.CARDS_IN_COLOR_COUNT + 1 + self.colors_tiles_width # skip colors (TODO - refactor)
-        interval_start = constants.COLORS_COUNT * features_per_color + Hand.getPc(self.state.hand)
+        interval_start = self.feature_counts['colors'] + Hand.getPc(self.state.hand)
         interval_length = self.pc_tiles_width + 1
         for inx in range(interval_start, interval_start + interval_length):
             self.features[inx] = 1
@@ -107,8 +116,31 @@ class StateFeatures(BaseStateFeatures):
         - weVuln, theyVuln - 1/0;
         this gives BINARY features cnt: 2
         """
-        features_per_color = constants.CARDS_IN_COLOR_COUNT + 1 + self.colors_tiles_width
-        features_for_pc = constants.MAX_PC_PLAYER + self.pc_tiles_width + 1
-        vulnerable_start = constants.COLORS_COUNT * features_per_color + features_for_pc # skip colors, PC (TODO - refactor)
+        vulnerable_start = self.feature_counts['colors'] + self.feature_counts['pc']
         self.features[vulnerable_start] = 1 if self.state.we_vulnerable else 0
         self.features[vulnerable_start + 1] = 1 if self.state.they_vulnerable else 0
+
+    def _add_biddings(self):
+        for player_no in range(constants.PLAYERS_COUNT):
+            self._add_player_bidding(player_no)
+
+    def _add_player_bidding(self, player_no):
+        """
+        - bidding: for each player there is a vector of size 1x38 (all bids) having value: 0 - bid didnt appear, 1 - bid was placed, 0+ - for pass, x, xx - count of apperance of pass, dbl, rdbl respectively;
+        this gives SMALL INT features cnt: 38 for each player
+        """
+        offset = self.feature_counts['colors'] + self.feature_counts['pc'] + self.feature_counts['vulnerable'] + player_no * constants.ALL_POSSIBLE_BIDS_COUNT
+        inx = player_no
+        while len(self.state.bidding) > inx:
+            value = self.state.bidding[-inx - 1]
+            self.features[offset + value] += 1
+            inx += constants.PLAYERS_COUNT
+
+    def _add_last_bids(self):
+        offset = self.feature_counts['colors'] + self.feature_counts['pc'] + self.feature_counts['vulnerable'] + self.feature_counts['bidding']
+        for item in range(self.last_bids_count):
+            if item >= len(self.state.bidding):
+                break
+            value = self.state.bidding[-item - 1]
+            self.features[offset + value] += 1
+            offset += constants.ALL_POSSIBLE_BIDS_COUNT

@@ -43,3 +43,15 @@ def test_vulnerable():
                        [1 if we_vulnerable else 0,1 if they_vulnerable else 0] + [0]*4*38 + [0]*3*38
 
             assert actual == expected
+
+def test_biddings():
+    stateFeatures = StateFeatures()
+    state = State(hand=[], bidding=[0,35,35,35, 1,36,37,35, 2,36,37,35, 3,35,35,35], we_vulnerable=False, they_vulnerable=False)
+    features = stateFeatures.get_features(state)
+    assert np.sum(features) == 4 * 3 + 4 + 16 + 3
+    assert features.tolist() == ([1,1,1] + [0]*13) * 4 + [1,1,1,1] + [0]*37 + [0,0] + \
+            [0]*35 + [4, 0, 0] + \
+            [0]*35 + [2, 0, 2] + \
+            [0]*35 + [2, 2, 0] + \
+            [1,1,1,1] + [0]*34 + \
+            ([0]*35 + [1, 0, 0])*3
